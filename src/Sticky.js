@@ -7,7 +7,7 @@ export default class Sticky extends Component {
     topOffset: PropTypes.number,
     bottomOffset: PropTypes.number,
     relative: PropTypes.bool,
-    children: PropTypes.func.isRequired
+    children: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -15,22 +15,22 @@ export default class Sticky extends Component {
     topOffset: 0,
     bottomOffset: 0,
     disableCompensation: false,
-    disableHardwareAcceleration: false
+    disableHardwareAcceleration: false,
   };
 
   static contextTypes = {
     subscribe: PropTypes.func,
     unsubscribe: PropTypes.func,
-    getParent: PropTypes.func
+    getParent: PropTypes.func,
   };
 
   state = {
     isSticky: false,
     wasSticky: false,
-    style: {}
+    style: {},
   };
 
-  componentWillMount() {
+  componentDidMount() {
     if (!this.context.subscribe)
       throw new TypeError(
         "Expected Sticky to be mounted within StickyContainer"
@@ -52,7 +52,7 @@ export default class Sticky extends Component {
   handleContainerEvent = ({
     distanceFromTop,
     distanceFromBottom,
-    eventSource
+    eventSource,
   }) => {
     const parent = this.context.getParent();
 
@@ -93,7 +93,7 @@ export default class Sticky extends Component {
                 : 0
               : bottomDifference,
           left: placeholderClientRect.left,
-          width: placeholderClientRect.width
+          width: placeholderClientRect.width,
         };
 
     if (!this.props.disableHardwareAcceleration) {
@@ -106,7 +106,7 @@ export default class Sticky extends Component {
       distanceFromTop,
       distanceFromBottom,
       calculatedHeight,
-      style
+      style,
     });
   };
 
@@ -118,18 +118,18 @@ export default class Sticky extends Component {
         distanceFromTop: this.state.distanceFromTop,
         distanceFromBottom: this.state.distanceFromBottom,
         calculatedHeight: this.state.calculatedHeight,
-        style: this.state.style
+        style: this.state.style,
       }),
       {
-        ref: content => {
+        ref: (content) => {
           this.content = ReactDOM.findDOMNode(content);
-        }
+        },
       }
     );
 
     return (
       <div>
-        <div ref={placeholder => (this.placeholder = placeholder)} />
+        <div ref={(placeholder) => (this.placeholder = placeholder)} />
         {element}
       </div>
     );
